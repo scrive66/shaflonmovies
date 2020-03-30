@@ -1,12 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="header">
+      <h1>
+        <span>しゃふろんの演奏動画</span>
+        <wbr />
+        <span>
+          まとめ
+          <a href="https://twitter.com/scrive66">
+            <font-awesome-icon :icon="['fab', 'twitter']" />
+          </a>
+        </span>
+      </h1>
+    </div>
+    <div id="footer">
+      <a href="#header" class="fix">
+        トップへ戻る
+        <font-awesome-icon icon="arrow-up" />
+      </a>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
+library.add(faTwitter, faArrowUp);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.config.productionTip = false;
 
 export default {
   name: 'App',
@@ -16,13 +39,30 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+#header {
+  margin-bottom: 20px;
+  padding: 1px;
+  background: #555555;
+  color: white;
+  white-space: nowrap;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background: #555555;
+  color: white;
+  padding: 10px;
+}
+
+#footer > * {
+  margin: 5px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 </style>
