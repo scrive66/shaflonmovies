@@ -31,7 +31,9 @@ export default {
     const res = await axios.get(
       "https://raw.githubusercontent.com/scrive66/shaflonmovies/master/src/urls.json"
     );
-    this.items = res.data;
+    this.items = res.data.filter(item =>
+      item.category != ""
+    );
     const urlVars = getUrlVars();
     if (!urlVars.category) {
       urlVars.category = "recommend";
