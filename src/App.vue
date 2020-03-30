@@ -41,11 +41,6 @@ export default {
   components: {
     FilterButtons,
     MovieContainer
-  },
-  methods: {
-    track() {
-      this.$ga.page('/')
-    }
   }
 };
 </script>
