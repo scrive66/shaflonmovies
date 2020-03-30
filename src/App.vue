@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
@@ -34,7 +35,6 @@ Vue.config.productionTip = false;
 export default {
   name: 'App',
   components: {
-    HelloWorld
   }
 }
 </script>
