@@ -10,9 +10,9 @@
 <script>
 import Vue from "vue";
 import MovieItem from "@/components/MovieItem.vue";
-import axios from "axios";
 import InfiniteLoading from "vue-infinite-loading";
 import VueMasonry from "vue-masonry-css";
+import urls from '../assets/urls.json';
 
 Vue.use(VueMasonry);
 
@@ -21,19 +21,14 @@ let readyForTwitterLoad = false;
 export default {
   data() {
     return{
-      items : null,
+      items : urls.filter(item =>
+        item.category != ""
+      ),
       filteredItems : null,
       displayedItems : []
     }
   },
   async created() {
-    this.displayedItems = []
-    const res = await axios.get(
-      "https://raw.githubusercontent.com/scrive66/shaflonmovies/master/src/urls.json"
-    );
-    this.items = res.data.filter(item =>
-      item.category != ""
-    );
     const urlVars = getUrlVars();
     if (!urlVars.category) {
       urlVars.category = "recommend";
