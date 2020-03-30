@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <masonry :cols="{default: 3, 1250: 2, 750: 1}" :gutter="5">
-      <MovieItem v-for="item in displayedItems" :url="item.url" />
+      <MovieItem v-for="item in displayedItems" :url="item.url" :key="item.id" />
       <InfiniteLoading @infinite="infiniteHandler" />
     </masonry>
   </div>
@@ -20,15 +20,16 @@ let readyForTwitterLoad = false;
 
 export default {
   data() {
-    return {
-      items: null,
-      filteredItems: null,
-      displayedItems: []
-    };
+    return{
+      items : null,
+      filteredItems : null,
+      displayedItems : []
+    }
   },
   async created() {
+    this.displayedItems = []
     const res = await axios.get(
-      "https://dl.dropboxusercontent.com/s/dy81xk8jw5rko3n/urls.json"
+      "https://raw.githubusercontent.com/scrive66/shaflonmovies/master/src/urls.json"
     );
     this.items = res.data;
     const urlVars = getUrlVars();
@@ -56,15 +57,14 @@ export default {
         if (readyForTwitterLoad) {
           clearInterval(iId);
           readyForTwitterLoad = false;
-          const data = this._data;
           if (this.displayedItems.length < this.filteredItems.length) {
             this.displayedItems.push(
               this.filteredItems[this.displayedItems.length]
             );
-            twttr.widgets.load();
+            window.twttr.widgets.load();
             $state.loaded();
           } else {
-            twttr.widgets.load();
+            window.twttr.widgets.load();
             $state.complete();
           }
         }
@@ -116,8 +116,8 @@ function twitterLoad() {
     );
   })(document, "script", "twitter-wjs");
 
-  twttr.ready(twttr => {
-    twttr.events.bind("loaded", event => {
+  window.twttr.ready(twttr => {
+    twttr.events.bind("loaded", () => {
       readyForTwitterLoad = true;
     });
   });

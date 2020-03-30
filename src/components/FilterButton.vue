@@ -43,6 +43,7 @@ function getUrlVars() {
 
 <style scoped>
 a {
+  text-align: center;
   padding: 3px;
   margin: 3px;
   min-width: 100px;

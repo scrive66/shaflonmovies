@@ -12,6 +12,8 @@
         </span>
       </h1>
     </div>
+    <FilterButtons />
+    <MovieContainer />
     <div id="footer">
       <a href="#header" class="fix">
         トップへ戻る
@@ -22,8 +24,10 @@
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import FilterButtons from "@/components/FilterButtons.vue";
+import MovieContainer from "@/components/MovieContainer.vue";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -33,22 +37,33 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
+    FilterButtons,
+    MovieContainer
   }
-}
+};
 </script>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
 
 <style scoped>
 #header {
+  text-align: center;
   margin-bottom: 20px;
-  padding: 1px;
+  padding: 30px;
   background: #555555;
   color: white;
   white-space: nowrap;
 }
 
 #footer {
+  text-align: center;
   position: fixed;
   bottom: 0px;
   width: 100%;
@@ -58,7 +73,9 @@ export default {
 }
 
 #footer > * {
+  display: inline-block;
   margin: 5px;
+  min-width: 100%;
 }
 
 a {
