@@ -1,6 +1,11 @@
 <template>
   <div class="filters">
-    <FilterButton v-for="item in items" :key="item.id" v-bind:filter="item.filter" v-bind:text="item.text" />
+    <FilterButton
+      v-for="item in items"
+      :key="item.id"
+      v-bind:filter="item.filter"
+      v-bind:text="item.text"
+    />
   </div>
 </template>
 

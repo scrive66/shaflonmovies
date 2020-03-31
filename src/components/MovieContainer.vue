@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <masonry :cols="{default: 3, 1250: 2, 750: 1}" :gutter="5">
+    <masonry :cols="{ default: 3, 1250: 2, 750: 1 }" :gutter="5">
       <MovieItem v-for="item in displayedItems" :url="item.url" :key="item.id" />
       <InfiniteLoading @infinite="infiniteHandler" />
     </masonry>
@@ -12,7 +12,7 @@ import Vue from "vue";
 import MovieItem from "@/components/MovieItem.vue";
 import InfiniteLoading from "vue-infinite-loading";
 import VueMasonry from "vue-masonry-css";
-import urls from '../assets/urls.json';
+import urls from "../assets/urls.json";
 
 Vue.use(VueMasonry);
 
@@ -20,13 +20,11 @@ let readyForTwitterLoad = false;
 
 export default {
   data() {
-    return{
-      items : urls.filter(item =>
-        item.category != ""
-      ),
-      filteredItems : null,
-      displayedItems : []
-    }
+    return {
+      items: urls.filter(item => item.category != ""),
+      filteredItems: null,
+      displayedItems: []
+    };
   },
   async created() {
     const urlVars = getUrlVars();
@@ -36,9 +34,10 @@ export default {
     if (urlVars.category == "all") {
       this.filteredItems = this.items;
     } else if (urlVars.category == "other") {
-      this.filteredItems = this.items.filter(item =>
-        item.category.includes(urlVars.category) 
-        || item.category.includes("practice")
+      this.filteredItems = this.items.filter(
+        item =>
+          item.category.includes(urlVars.category) ||
+          item.category.includes("practice")
       );
     } else {
       this.filteredItems = this.items.filter(item =>
@@ -54,14 +53,17 @@ export default {
         if (readyForTwitterLoad) {
           clearInterval(iId);
           readyForTwitterLoad = false;
+          for (let i = 0; i < 3; i++) {
+            if (this.displayedItems.length < this.filteredItems.length) {
+              this.displayedItems.push(
+                this.filteredItems[this.displayedItems.length]
+              );
+            }
+          }
+          window.twttr.widgets.load();
           if (this.displayedItems.length < this.filteredItems.length) {
-            this.displayedItems.push(
-              this.filteredItems[this.displayedItems.length]
-            );
-            window.twttr.widgets.load();
             $state.loaded();
           } else {
-            window.twttr.widgets.load();
             $state.complete();
           }
         }
